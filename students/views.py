@@ -1,17 +1,17 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from .models import Student
 from .forms import StudentForm
 
 # Create your views here.
-def index(request):
+def index(request):   
     return render(request,'students/index.html', {
         'students': Student.objects.all() 
         })
 def view_student(request, id):
     student = Student.objects.get(pk=id)
-    return HttpResponseRedirect(reverse('index'))
+    return redirect(reverse('index'))
 
 def add(request):
     if request.method == 'POST':
@@ -64,7 +64,7 @@ def delete(request, id):
    if request.method == 'POST':
      student = Student.objects.get(pk=id)
      student.delete()
-   return HttpResponseRedirect(reverse('index'))
+   return redirect(reverse('index'))
 
 
 
